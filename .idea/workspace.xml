@@ -4,8 +4,6 @@
     <list default="true" id="e73589b4-b1df-4173-804a-c356613bb58b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/main.ff90907f.chunk.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/static/js/main.ff90907f.chunk.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/main.ff90907f.chunk.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/build/static/js/main.ff90907f.chunk.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/api.js" afterDir="false" />
     </list>
@@ -72,7 +70,7 @@
       <workItem from="1596135489746" duration="40103000" />
       <workItem from="1596233530850" duration="20517000" />
       <workItem from="1596391042670" duration="24098000" />
-      <workItem from="1596441344704" duration="79726000" />
+      <workItem from="1596441344704" duration="80164000" />
     </task>
     <servers />
   </component>
@@ -145,10 +143,10 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="100" y="123" width="1480" height="827" key="dock-window-1/0.23.1680.1027@0.23.1680.1027" timestamp="1596570587160" />
-    <state x="495" y="300" width="845" height="538" key="find.popup" timestamp="1596580919151">
+    <state x="495" y="300" width="845" height="538" key="find.popup" timestamp="1596581490443">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state x="495" y="300" width="845" height="538" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1596580919151" />
+    <state x="495" y="300" width="845" height="538" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1596581490443" />
     <state x="505" y="248" key="run.anything.popup" timestamp="1596176145316">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
