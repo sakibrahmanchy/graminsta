@@ -1,0 +1,24 @@
+{
+   "type": "mysql",
+   "host": "database",
+   "port": 3306,
+   "username": "root",
+   "password": "myrootpassword",
+   "database": "graminsta",
+   "synchronize": true,
+   "logging": true,
+   "entities": [
+      "dist/entity/**/*.ts"
+   ],
+   "migrations": [
+      "dist/migration/**/*.ts"
+   ],
+   "subscribers": [
+      "dist/subscriber/**/*.ts"
+   ],
+   "cli": {
+      "entitiesDir": "src/entity",
+      "migrationsDir": "src/migration",
+      "subscribersDir": "src/subscriber"
+   }
+}

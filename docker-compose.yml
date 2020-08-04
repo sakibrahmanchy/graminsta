@@ -1,0 +1,47 @@
+version: '3'
+networks:
+  graminsta:
+    driver: bridge
+volumes:
+  db:
+    driver:
+      local
+services:
+  graminsta:
+    image: node:lts
+    volumes:
+      - ./:/app
+    working_dir: /app
+    networks:
+      - graminsta
+    external_links:
+      - db
+    environment:
+      NODE_ENV: "development"
+      PORT: 8078
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: myrootpassword
+      MYSQL_PASSWPORD: myrootpassword
+      MYSQL_DATABASE: graminsta
+      MYSQL_HOST: database
+    ports:
+      - "8078:8078"
+    command: "npm run start2"
+
+  database:
+    image: mysql:5.7
+    container_name: database
+    networks:
+      - graminsta
+    ports:
+      - "3305:3306"
+    volumes:
+      - "./data:/docker-entrypoint-initdb.d"
+      - "db:/var/lib/mysql"
+    restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: myrootpassword
+      MYSQL_USER: root
+      MYSQL_PASSWORD: myrootpassword
+      MYSQL_DATABASE: graminsta
