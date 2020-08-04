@@ -5,8 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import InfiniteScroll from 'react-infinite-scroller';
 import Post from './Post';
 import { getCookie } from './utils/cookie';
-
-
 import { baseUrl } from "./utils/api";
 import Navbar from "./Nav";
 

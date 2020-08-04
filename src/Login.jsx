@@ -94,7 +94,7 @@ export default function Login () {
                                 disabled
                             />
                         </div>
-                        <a className="link">gramInsta, love thy art</a>
+                        <span>gramInsta, love thy art</span>
                     </div>
                     <div>
                         <button className="btn-red" onClick={loginWithMockUser}>Login as mock user</button>

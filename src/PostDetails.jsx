@@ -90,7 +90,7 @@ export default function PostDetails({ opened, onClose, post }) {
     const {
             photos = [],
             content = '',
-            user: { id = 0, name: userName = '', imageUrl: userImage = '' } = {},
+            user: { name: userName = '', imageUrl: userImage = '' } = {},
             likes,
             comments,
             createdAt: postCreatedAt = '',
@@ -114,6 +114,7 @@ export default function PostDetails({ opened, onClose, post }) {
                             <Grid item xs={7}>
                                 {showloader ? <Skeleton variant="rect" width={550} height={700} /> : null }
                                 <img
+                                    alt={content}
                                     hidden={showloader}
                                     src={image}
                                     style={{ width: '100%', height: '700px' }}
