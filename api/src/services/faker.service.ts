@@ -14,19 +14,38 @@ export default class FakerService {
   private photoService: PhotoService;
   private postService: PostService;
   private reactionService: ReactionService;
+
+  /**
+   * Injecting services for fake data creation
+   * @param userService
+   * @param photoService
+   * @param postService
+   * @param reactionService
+   */
     // @ts-ignore
     // tslint:disable-next-line:max-line-length
   constructor(private userService: UserService, private photoService: PhotoService, private postService: PostService, private reactionService: ReactionService) {
   }
 
+  /**
+   * Format consoles.
+   */
   printSeparators() {
     this.log('-------------------------------------------------------------------');
   }
 
+  /**
+   * Log current status in console
+   * @param message
+   */
   log(message) {
     console.log(message);
   }
 
+  /**
+   * Generating random reactions (comment & likes) by random users for a post.
+   * @param postId
+   */
   async createFakeReactionsForPost(postId) {
     let likeCounts = getRandomIntegerNumberInRange(1, 50);
     let commentCounts = getRandomIntegerNumberInRange(1, 30);
@@ -66,6 +85,11 @@ export default class FakerService {
     }
   }
 
+  /**
+   * Generating random posts with random images. Default number of posts per user: 30.
+   * @param userId
+   * @param postCount
+   */
   async createFakePostsForUser(userId, postCount) {
     const user = await this.userService.getUserById(userId);
     if (!user) {
@@ -90,6 +114,12 @@ export default class FakerService {
 
   }
 
+  /**
+   * Creating fake user, by random name, email, image & fixed password.
+   * Also create random posts for that user
+   * @param postCount
+   * @param data
+   */
   async createFakeUser(postCount = 0, data = null) {
     const { id, name, email } = await this.userService.add(data ?? {
       name: faker.name.findName(),
@@ -112,6 +142,11 @@ export default class FakerService {
     this.createFakePostsForUser(id, postCount ?? randomPostCount);
   }
 
+  /**
+   * Generate fake data, by default 20 users, 30 posts per user
+   * @param usersCount
+   * @param postCountPerUser
+   */
   async generateFakeData({ usersCount = 20, postCountPerUser = 30 }) {
     const currentUserCount = (await this.userService.getAll()).length || 0;
 

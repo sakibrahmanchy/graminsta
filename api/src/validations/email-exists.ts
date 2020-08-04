@@ -5,12 +5,12 @@ import {
   ValidatorConstraintInterface,
   ValidationArguments,
 } from 'class-validator';
-import { User } from '../entity/User';
-import Repository from '../repository/repository';
-import { RepositoryInterface } from '../repository/repository.interface';
+
 import { Service } from 'typedi';
 import UserService from '../services/user.service';
-
+/**
+ * Custom validator to validate if email exists in db or not
+ */
 @Service({ global: true })
 @ValidatorConstraint({ async: true })
 export class EmailAlreadyExistsConstraint implements ValidatorConstraintInterface {

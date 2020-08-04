@@ -1,49 +1,22 @@
-import React, {useState} from 'react';
-import './App.css';
-import Login from './login';
-import Dashboard from "./Dashboard";
-import Profile from "./Profile";
-import { getCookie } from './cookies';
+import React from "react";
 import {
     BrowserRouter as Router,
     Switch,
     Route,
     Redirect,
 } from "react-router-dom";
+import './App.css';
+import Login from './Login';
+import Dashboard from "./Dashboard";
+import Profile from "./Profile";
+import { auth, PrivateRoute} from "./utils/auth";
 
-const auth = {
-    isAuthenticated: false,
-    authenticate(cb) {
-        if (getCookie('token') !== '') {
-            auth.isAuthenticated = true;
-        }
-    },
-    signout(cb) {
-        auth.isAuthenticated = false;
-        setTimeout(cb, 100);
-    }
-};
 
-function PrivateRoute({ component: ChildComponent, ...rest }) {
-    return (
-        <Route
-            {...rest}
-            render={(props) =>
-                getCookie('token') !== '' ? (
-                    <ChildComponent {...props} {...rest}/>
-                ) : (
-                    <Redirect
-                        to={{
-                            pathname: "/login",
-                            state: { from: props.location }
-                        }}
-                    />
-                )
-            }
-        />
-    );
-}
-
+/**
+ * Render App
+ * @returns {*}
+ * @constructor
+ */
 function App() {
   return (
     <div className="flexwrapper">

@@ -4,20 +4,10 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@apollo/react-hooks": "^3.1.5",
-    "@apollo/react-testing": "^3.1.4",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
-    "apollo-boost": "^0.4.9",
-    "apollo-error": "^1.0.2",
-    "apollo-errors": "^1.9.0",
     "clsx": "^1.1.1",
-    "concurrently": "^5.2.0",
-    "graphql": "^15.2.0",
-    "less": "^3.12.2",
-    "less-loader": "^6.2.0",
-    "moment": "^2.27.0",
     "path": "^0.12.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -26,20 +16,16 @@
     "react-scripts": "3.4.1",
     "react-test-renderer": "^16.13.1",
     "styled-components": "^5.1.1",
-    "typescript": "^3.9.6",
-    "util": "^0.12.3",
-    "uuid": "^8.2.0"
+    "typescript": "^3.9.6"
   },
   "scripts": {
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "build:api": "cd api && npm start",
-    "start:client2": "react-scripts start",
-    "start:client": "npm run build:api",
+    "start:client": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start": "npm run build && (npm run build:api)",
-    "start2": "npm run build:api"
+    "start": "npm run build:api"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -64,11 +50,6 @@
     ]
   },
   "devDependencies": {
-    "mock-apollo-client": "^0.4.0",
-    "moment": "^2.27.0",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
     "@types/express": "^4.17.6",
     "@types/jest": "^26.0.3",
     "@types/node": "^14.0.14",
@@ -80,7 +61,6 @@
     "eslint-config-prettier": "^6.6.0",
     "eslint-import-resolver-webpack": "^0.11.0",
     "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-jest": "^23.0.3",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
     "prettier": "^2.0.5",

@@ -1,3 +1,7 @@
+/**
+ * List of dummy photos uploaded at picsum.photos. This dummy photos are tagged with post contents
+ * to generate a random post.
+ */
 export const POST_PHOTOS = [
   0,
   1,

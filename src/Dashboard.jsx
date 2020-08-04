@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import InfiniteScroll from 'react-infinite-scroller';
-import { Redirect } from 'react-router'
 import Post from './Post';
-import { getCookie } from './cookies'
+import { getCookie } from './utils/cookie';
 
 
-import LinearProgress from '@material-ui/core/LinearProgress';
+import { baseUrl } from "./utils/api";
 import Navbar from "./Nav";
 
 const useStyles = makeStyles((theme) => ({
@@ -30,9 +31,13 @@ export default function Dashboard() {
     const [hasMoreItems, setHasMoreItems] = useState(true);
     const [redirect, setRedirect] = useState(false);
 
+    /**
+     * Fetching posts from api, in dashboard view
+     * @returns {Promise<void>}
+     */
     async function fetchData() {
         const take = 10;
-        const url = `http://localhost:8078/posts?take=${take}&skip=${skip}`;
+        const url = `${baseUrl}/posts?take=${take}&skip=${skip}`;
 
         fetch(url, {
             method: 'get',
@@ -68,17 +73,32 @@ export default function Dashboard() {
         fetchData();
     }, []);
 
-
-    const items = (data && data.map(({ photos, content, user: { name, id, imageUrl: userImage }, id: postId })=> {
+    /**
+     * Rendering each posts using the Post component
+     * @type {*[]}
+     */
+    const items = (data && data.map(({
+         photos,
+         content,
+         user: { name, id, imageUrl: userImage },
+         id: postId,
+         createdAt,
+         likes,
+         comments,
+    })=> {
         const [{ thumbUrl }] = photos;
-        // eslint-disable-next-line no-unused-expressions
         return <Post
             key={postId}
             image={thumbUrl}
             userImage={userImage}
             content={content}
-            userName={name} id={id} />
+            userName={name} id={id}
+            createdAt={createdAt}
+            likes={likes}
+            comments={comments}
+        />
     })) || [];
+
     return (
         <div className={classes.root}>
             {redirect && <Redirect to='/login'/>}

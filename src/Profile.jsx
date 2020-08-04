@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -10,14 +8,14 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import Favorite from '@material-ui/icons/Favorite';
-import { getCookie } from './cookies'
-import PostDetails from "./PostDetails";
-
 import LinearProgress from '@material-ui/core/LinearProgress';
-import Avatar from "@material-ui/core/Avatar";
 import Skeleton from "@material-ui/lab/Skeleton";
 import InfiniteScroll from "react-infinite-scroller";
+import Avatar from "@material-ui/core/Avatar";
+import { getCookie } from './utils/cookie';
+import PostDetails from "./PostDetails";
 import Navbar from "./Nav";
+import { baseUrl } from "./utils/api";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -69,7 +67,7 @@ export default function Profile({ match: { params: { id: userId = 0 } = {} } = {
     const [selectedPost, setSelectedPost] = useState({});
 
     async function fetchData() {
-        const url = `http://localhost:8078/posts?user_id=${userId}`;
+        const url = `${baseUrl}/posts?user_id=${userId}`;
 
         fetch(url, {
             method: 'get',
@@ -111,7 +109,7 @@ export default function Profile({ match: { params: { id: userId = 0 } = {} } = {
         if (!data) {
             return null;
         }
-        return data.map(({ photos, content, user: { name, id, imageUrl }, likes, comments}, index ) => {
+        return data.map(({ photos, content, user: { name, id, imageUrl }, likes, comments, id: postId}, index ) => {
             const [{ thumbUrl }] = photos;
             return (
             <GridListTile
@@ -121,13 +119,7 @@ export default function Profile({ match: { params: { id: userId = 0 } = {} } = {
                 onClick={() => {
                     setOpenDetails(true);
                     setSelectedPost({
-                        image: photos[0].thumbUrl,
-                        content,
-                        userName: name,
-                        id,
-                        userImage: imageUrl,
-                        likes,
-                        comments
+                        postId,
                     })
                 }}
             >

@@ -7,6 +7,9 @@ export class UserController {
   constructor(private readonly userService: UserService) {
   }
 
+  /**
+   * Listing users.
+   */
   @Get()
     async users(): Promise<User[]> {
     return this.userService.getAll();

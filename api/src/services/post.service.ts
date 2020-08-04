@@ -1,4 +1,4 @@
-import { Service, Inject, Container } from 'typedi';
+import { Service, Container } from 'typedi';
 import Repository from '../repository/repository';
 import { RepositoryInterface } from '../repository/repository.interface';
 import { Post } from '../entity/Post';
@@ -13,6 +13,12 @@ import { Type } from '../entity/Reaction';
 export default class PostService {
   private postRepository;
   private user: User;
+
+  /**
+   * Injecting post repository and photo service for post control.
+   * @param postRepository
+   * @param photoService
+   */
   // @ts-ignore
   // @ts-ignore
   constructor(@Repository(Post) private postRepository: RepositoryInterface,
@@ -21,6 +27,13 @@ export default class PostService {
     this.user = Container.get('user');
   }
 
+  /**
+   * List posts with reactions, pagination, query handling.
+   * @param take
+   * @param skip
+   * @param keyword
+   * @param userId
+   */
   async getAll({ take = 10, skip = 0, keyword = '', userId = null }) {
     let where = [
       { content: Like(`%${keyword}%`) },
@@ -54,14 +67,14 @@ export default class PostService {
             FROM post
                      LEFT JOIN reaction reaction ON reaction.postId = post.id
             WHERE post.id = ?
-              AND reaction.type = ?`, [ post.id, Type.LIKE ]);
+              AND reaction.type = ?`, [post.id, Type.LIKE]);
 
       const [{ comments }] = await this.postRepository
           .query(`SELECT count(post.id) AS comments
             FROM post
                      LEFT JOIN reaction reaction ON reaction.postId = post.id
             WHERE post.id = ?
-              AND reaction.type = ?`, [ post.id, Type.COMMENT ]);
+              AND reaction.type = ?`, [post.id, Type.COMMENT]);
 
       const resolved = await acc;
 
@@ -79,19 +92,36 @@ export default class PostService {
     return { count, posts: postsUpdated };
   }
 
-  async getUserPosts(userId) {
-    return this.postRepository.find({
-      where: {
-        userId,
-      },
-      relations: ['photos', 'user'],
-    });
+  /**
+   * Get individual post data by post id.
+   * @param postId
+   */
+  async getPost(postId) {
+    const post = await this.postRepository.findOne({ where: { id: postId }, relations: ['photos', 'user', 'reactions', 'reactions.user'] });
+    const comments = post.reactions.filter(({ type }) => type === Type.COMMENT);
+    const likes = post.reactions.filter(({ type }) => type === Type.LIKE).length;
+    delete post.reactions;
+    return {
+      ...post,
+      likes,
+      comments,
+    };
   }
 
+  /**
+   * Add new post by given data.
+   * @param data
+   * @param fakeUser
+   */
   async add(data: PostAddInput, fakeUser: User = null) {
     return this.createPost(data, fakeUser);
   }
 
+  /**
+   * Handle post creation logic.
+   * @param postData
+   * @param fakeUser
+   */
   private async createPost(postData: Partial<Post>, fakeUser = null) {
     const { content } = postData;
     const photo: Photo = await this.photoService.getAndSaveRandomPhoto();
@@ -104,6 +134,10 @@ export default class PostService {
     return this.postRepository.save(post);
   }
 
+  /**
+   * Find posts by id.
+   * @param id
+   */
   async findById(id: number) {
     return this.postRepository.findOne({ where: { id } });
   }

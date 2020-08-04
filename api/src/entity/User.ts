@@ -6,8 +6,14 @@ import {
   CreateDateColumn, UpdateDateColumn,
 } from 'typeorm';
 import { Post } from './Post';
-import {Reaction} from './Reaction';
+import { Reaction } from './Reaction';
 
+/**
+ * User entity.
+ *
+ * Columns: id, name, email, password, imageUrl, createdAt, updatedAt.
+ * Relations: posts, reactions.
+ */
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')

@@ -1,13 +1,11 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import Skeleton from "@material-ui/lab/Skeleton";
 import Avatar from "@material-ui/core/Avatar";
-import {Link} from "react-router-dom";
 import CardHeader from "@material-ui/core/CardHeader";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import {green} from "@material-ui/core/colors";
@@ -18,13 +16,14 @@ import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-
+import { baseUrl } from "./utils/api";
+import { getCookie } from "./utils/cookie";
+import { formatDate } from "./utils/date";
 
 const styles = () => ({
     root: {
         margin: 0,
-        // padding: theme.spacing(2),
-        height: '600px',
+        height: '500px',
         width: '935px',
         overflow: 'auto',
     },
@@ -48,26 +47,56 @@ const DialogContent = withStyles((theme) => ({
     },
 }))(MuiDialogContent);
 
-const DialogActions = withStyles((theme) => ({
-    root: {
-        margin: 0,
-        padding: theme.spacing(1),
-    },
-}))(MuiDialogActions);
-
 export default function PostDetails({ opened, onClose, post }) {
-    const { image, content, userName, id, userImage, likes, comments } = post;
+    const { postId } = post;
     const classes = styles();
-    const [open, setOpen] = React.useState(opened);
-    const [imgLoading, setImgLoading] = React.useState(true);
+    const [open, setOpen] = useState(opened);
+    const [imgLoading, setImgLoading] = useState(true);
+    const [isBusy, setBusy] = useState(false);
+    const [data, setData] = useState(false);
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
+
+    async function fetchData(id) {
+        const url = `${baseUrl}/posts/${id}`;
+
+        fetch(url, {
+            method: 'get',
+            headers: new Headers({
+                'Authorization': `Basic ${getCookie('token')}`,
+                'Content-Type': 'application/json'
+            }),
+        }).then(res => res.json()).then((response) => {
+            setBusy(false);
+
+            if (response) {
+               setData(response)
+            }
+        }).catch(() => {
+            setBusy(false);
+            setData(null);
+        });
+    }
+
+    useEffect(() => {
+        setBusy(true);
+        fetchData(postId);
+    }, []);
+
     const handleClose = () => {
         setOpen(false);
         onClose(false);
     };
+
+    const {
+            photos = [],
+            content = '',
+            user: { id = 0, name: userName = '', imageUrl: userImage = '' } = {},
+            likes,
+            comments,
+            createdAt: postCreatedAt = '',
+    } = data || {};
+    const [{ thumbUrl: image = ''} = {}] = photos;
+    const showloader = isBusy || imgLoading;
 
     return (
         <div>
@@ -77,18 +106,23 @@ export default function PostDetails({ opened, onClose, post }) {
                 open={open}
                 fullWidth={true}
                 maxWidth = {'md'}
+                style={{ height: '800px', overlow: 'hidden' }}
             >
-                <DialogContent dividers>
+                <DialogContent dividers style={{ overflow: 'hidden' }}>
                     <div>
-                        <Grid container  direction="row" >
+                        <Grid container direction="row" >
                             <Grid item xs={7}>
-                                {imgLoading ?  <Skeleton variant="rect" width={600} height={500} /> : null}
-                                {    <img
+                                {showloader ? <Skeleton variant="rect" width={550} height={700} /> : null }
+                                <img
+                                    hidden={showloader}
                                     src={image}
-                                    style={{ width: '100%', height: '600px' }}
-                                    onLoad={() => {setImgLoading(false)}}
+                                    style={{ width: '100%', height: '700px' }}
+                                    onLoad={() => {
+                                        setTimeout(() => {
+                                            setImgLoading(false)
+                                        }, 300);
+                                    }}
                                 />
-                                }
                             </Grid>
                             <Grid item xs={5} style={{ padding: '10px' }}>
                                 <div style={{ float: 'right', marginBottom: '10px' }}>
@@ -96,169 +130,124 @@ export default function PostDetails({ opened, onClose, post }) {
                                 </div>
                                 <CardHeader
                                     avatar={
-                                        imgLoading ? (
+                                        showloader ? (
                                             <Skeleton animation="wave" variant="circle" width={40} height={40} />
                                         ) : (
                                             <Avatar aria-label="recipe" src={userImage}/>
                                         )
                                     }
-                                    title={imgLoading ?
+                                    title={showloader ?
                                         (
-                                            <Skeleton animation="wave" height={10} width="80%" style={{ marginBottom: 6 }} />
+                                            <Skeleton animation="wave" height={10}  style={{ marginBottom: 6 }} />
                                         ) :
-                                        (<Link to={`profile/${id}`}>{userName} </Link>)
+                                        (<b>{userName} </b>)
                                     }
-                                    subheader={imgLoading ? <Skeleton animation="wave" height={10} width="40%" /> :  '5 hours ago'}
+                                    subheader={showloader ? (<Skeleton animation="wave" height={10} width="50%" />) :
+                                        (formatDate(postCreatedAt))
+                                    }
                                 />
-                               <div style={{ padding: '16px' }}>
+                               <div style={{ padding: '16px', paddingTop: '0px' }}>
                                    <div>
                                        <Typography variant="body2" color="textSecondary" component="p">
-                                           {content}
+                                           {showloader ? (
+                                              <span>
+                                                  <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+                                                  <Skeleton animation="wave" height={10}  style={{ marginBottom: 6 }} />
+                                                  <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+                                                  <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+                                                  <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+                                                  <Skeleton animation="wave" height={10} width="50%" />
+                                              </span>
+
+                                           ): (
+                                              <p>
+                                                  {content}
+                                              </p>
+                                           )}
                                        </Typography>
                                    </div>
                                    <Grid container direction="row" style={{ paddingTop: '10px' }}>
-                                       <Grid item xs className="icon">
-                                           <FavoriteIcon style={{ marginTop: '2px'}}/> <span>{likes}</span>
-                                       </Grid>
+                                       {showloader ? <Skeleton animation="wave"  width={30} height={30} />:
+                                           (<Grid item xs className="icon">
+                                               <FavoriteIcon style={{ marginTop: '2px'}}/> <span>{likes}</span>
+                                           </Grid>)}
 
-                                       <Grid item xs className='icon'>
-                                           <ChatBubbleIcon style={{ marginTop: '2px', marginLeft: '-110px' }}/> {comments}
-                                       </Grid>
+                                       {showloader? <Skeleton animation="wave" width={30} height={30} style={{ marginLeft: '20px'}}/> : (
+                                           <Grid item xs className='icon'>
+                                               <ChatBubbleIcon style={{ marginTop: '2px', marginLeft: '-110px' }}/> {comments.length}
+                                           </Grid>
+                                       ) }
                                    </Grid>
                                </div>
-                                <div style={{ height: '300px', overflow: 'scroll'}}>
+                                <div style={{ height: '520px', overflow: 'scroll'}}>
                                     <List className={classes.root}>
-                                        <ListItem alignItems="flex-start">
-                                            <ListItemAvatar>
-                                                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                                            </ListItemAvatar>
-                                            <ListItemText
-                                                primary="Brunch this weekend?"
-                                                secondary={
-                                                    <React.Fragment>
-                                                        <Typography
-                                                            component="span"
-                                                            variant="body2"
-                                                            className={classes.inline}
-                                                            color="textPrimary"
-                                                        >
-                                                            Ali Connors
-                                                        </Typography>
-                                                        {" — I'll be in your neighborhood doing errands this…"}
-                                                    </React.Fragment>
-                                                }
-                                            />
-                                        </ListItem>
-                                        <Divider variant="inset" component="li" />
-                                        <ListItem alignItems="flex-start">
-                                            <ListItemAvatar>
-                                                <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-                                            </ListItemAvatar>
-                                            <ListItemText
-                                                primary="Summer BBQ"
-                                                secondary={
-                                                    <React.Fragment>
-                                                        <Typography
-                                                            component="span"
-                                                            variant="body2"
-                                                            className={classes.inline}
-                                                            color="textPrimary"
-                                                        >
-                                                            to Scott, Alex, Jennifer
-                                                        </Typography>
-                                                        {" — Wish I could come, but I'm out of town this…"}
-                                                    </React.Fragment>
-                                                }
-                                            />
-                                        </ListItem>
-                                        <Divider variant="inset" component="li" />
-                                        <ListItem alignItems="flex-start">
-                                            <ListItemAvatar>
-                                                <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-                                            </ListItemAvatar>
-                                            <ListItemText
-                                                primary="Oui Oui"
-                                                secondary={
-                                                    <React.Fragment>
-                                                        <Typography
-                                                            component="span"
-                                                            variant="body2"
-                                                            className={classes.inline}
-                                                            color="textPrimary"
-                                                        >
-                                                            Sandra Adams
-                                                        </Typography>
-                                                        {' — Do you have Paris recommendations? Have you ever…'}
-                                                    </React.Fragment>
-                                                }
-                                            />
-                                        </ListItem>
-                                        <Divider variant="inset" component="li" />
-                                        <ListItem alignItems="flex-start">
-                                            <ListItemAvatar>
-                                                <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-                                            </ListItemAvatar>
-                                            <ListItemText
-                                                primary="Oui Oui"
-                                                secondary={
-                                                    <React.Fragment>
-                                                        <Typography
-                                                            component="span"
-                                                            variant="body2"
-                                                            className={classes.inline}
-                                                            color="textPrimary"
-                                                        >
-                                                            Sandra Adams
-                                                        </Typography>
-                                                        {' — Do you have Paris recommendations? Have you ever…'}
-                                                    </React.Fragment>
-                                                }
-                                            />
-                                        </ListItem>
-                                        <Divider variant="inset" component="li" />
-                                        <ListItem alignItems="flex-start">
-                                            <ListItemAvatar>
-                                                <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-                                            </ListItemAvatar>
-                                            <ListItemText
-                                                primary="Oui Oui"
-                                                secondary={
-                                                    <React.Fragment>
-                                                        <Typography
-                                                            component="span"
-                                                            variant="body2"
-                                                            className={classes.inline}
-                                                            color="textPrimary"
-                                                        >
-                                                            Sandra Adams
-                                                        </Typography>
-                                                        {' — Do you have Paris recommendations? Have you ever…'}
-                                                    </React.Fragment>
-                                                }
-                                            />
-                                        </ListItem>
-                                        <Divider variant="inset" component="li" />
-                                        <ListItem alignItems="flex-start">
-                                            <ListItemAvatar>
-                                                <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-                                            </ListItemAvatar>
-                                            <ListItemText
-                                                primary="Oui Oui"
-                                                secondary={
-                                                    <React.Fragment>
-                                                        <Typography
-                                                            component="span"
-                                                            variant="body2"
-                                                            className={classes.inline}
-                                                            color="textPrimary"
-                                                        >
-                                                            Sandra Adams
-                                                        </Typography>
-                                                        {' — Do you have Paris recommendations? Have you ever…'}
-                                                    </React.Fragment>
-                                                }
-                                            />
-                                        </ListItem>
+                                        {
+                                            showloader ?
+                                            (
+                                                <div style={{ padding: '16px' }}>
+                                                    <div style={{ paddingTop: '10px'}}>
+                                                        <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+                                                        <Skeleton animation="wave" height={10}  style={{ marginBottom: 6 }} />
+                                                        <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+                                                        <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+                                                        <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+                                                        <Skeleton animation="wave" height={10} width="50%" />
+                                                    </div>
+
+                                                    <div style={{ paddingTop: '10px'}}>
+                                                        <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+                                                        <Skeleton animation="wave" height={10}  style={{ marginBottom: 6 }} />
+                                                        <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+                                                        <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+                                                        <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+                                                        <Skeleton animation="wave" height={10} width="50%" />
+                                                    </div>
+
+                                                    <div style={{ paddingTop: '10px'}}>
+                                                        <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+                                                        <Skeleton animation="wave" height={10}  style={{ marginBottom: 6 }} />
+                                                        <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+                                                        <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+                                                        <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+                                                        <Skeleton animation="wave" height={10} width="50%" />
+                                                    </div>
+                                                </div>
+                                            )
+                                            :
+                                                ( comments.map(({
+                                                    content: commentContent = '',
+                                                    user: {
+                                                        name: userName = '',
+                                                        imageUrl = '',
+                                                    },
+                                                }) => {
+                                                return (
+                                                    <div>
+                                                        <ListItem alignItems="flex-start">
+                                                            <ListItemAvatar>
+                                                                <Avatar alt="Remy Sharp" src={imageUrl} />
+                                                            </ListItemAvatar>
+                                                            <ListItemText
+                                                                primary={userName}
+                                                                secondary={
+                                                                    <React.Fragment>
+                                                                        <Typography
+                                                                            component="span"
+                                                                            variant="body2"
+                                                                            className={classes.inline}
+                                                                            color="textPrimary"
+                                                                        >
+                                                                            {commentContent}
+                                                                        </Typography>
+                                                                    </React.Fragment>
+                                                                }
+                                                            />
+                                                        </ListItem>
+                                                        <Divider variant="inset" component="li" />
+                                                    </div>
+                                                )
+                                            }))
+                                        }
                                     </List>
                                 </div>
                             </Grid>

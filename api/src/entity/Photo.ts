@@ -7,6 +7,12 @@ import {
 } from 'typeorm';
 import { Post } from './Post';
 
+/**
+ * Photo entity.
+ *
+ * Columns: id, thumbUrl, url, createdAt, updatedAt.
+ * Relations: post.
+ */
 @Entity()
 export class Photo {
   @PrimaryGeneratedColumn('uuid')

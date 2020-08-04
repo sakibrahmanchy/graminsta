@@ -1,9 +1,8 @@
 import { verify } from 'jsonwebtoken';
 import { getRepository } from 'typeorm';
-import { ArgumentValidationError } from 'type-graphql';
+import { Container } from 'typedi';
 import { User } from '../entity/User';
 import { createValidationErrors } from '../validations/helpers';
-import {Container} from 'typedi';
 
 /**
  * Auth middleware that verifies the authorization token. Auth header token is parsed from passed
@@ -11,7 +10,6 @@ import {Container} from 'typedi';
  *
  * @param request
  */
-// eslint-disable-next-line import/prefer-default-export
 export const authMiddleWare = async ({ request, response }) => {
   const {
     headers: {
@@ -29,7 +27,7 @@ export const authMiddleWare = async ({ request, response }) => {
     return user;
   } catch (e) {
     // Verification false, abort
-    throw new ArgumentValidationError(
+    response.json(
       createValidationErrors('auth', ['Authorization failed']),
     );
   }

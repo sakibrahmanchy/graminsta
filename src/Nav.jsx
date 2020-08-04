@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import AppBar from "@material-ui/core/AppBar";
 import { Redirect } from 'react-router';
-import { deleteCookie } from './cookies';
+import { deleteCookie } from './utils/cookie';
 import React, {useState} from "react";
 
 export default function Navbar() {

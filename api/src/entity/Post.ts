@@ -3,12 +3,18 @@ import {
   PrimaryGeneratedColumn,
   Column,
   OneToMany,
-  OneToOne, JoinColumn, ManyToOne, CreateDateColumn, UpdateDateColumn,
+  ManyToOne, CreateDateColumn, UpdateDateColumn,
 } from 'typeorm';
 import { User } from './User';
 import { Photo } from './Photo';
 import { Reaction } from './Reaction';
 
+/**
+ * Post entity.
+ *
+ * Columns: id, content,createdAt, updatedAt.
+ * Relations: photos, reactions.
+ */
 @Entity()
 export class Post {
   @PrimaryGeneratedColumn('uuid')

@@ -1,16 +1,9 @@
-import { ObjectType, Field, ID } from 'type-graphql';
-
-@ObjectType()
 export class UserLoginResponse {
-  @Field(() => ID)
-    id?: number;
+  id?: number;
 
-  @Field()
-    token?: string;
+  token?: string;
 
-  @Field()
-    success?: boolean;
+  success?: boolean;
 
-  @Field()
-    errors?: any[];
+  errors?: any[];
 }

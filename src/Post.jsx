@@ -17,6 +17,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Skeleton from '@material-ui/lab/Skeleton';
 import { Link } from 'react-router-dom';
+import {formatDate} from "./utils/date";
+import Grid from "@material-ui/core/Grid";
+import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 
 const skeletonStyle = { background: 'lightPink' };
 
-export default function Post({ image, content, userName = '', id, userImage }) {
+export default function Post({ image, content, userName = '', id, userImage, createdAt, likes, comments }) {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
     const [imgLoading, setImgLoading] = React.useState(true);
@@ -76,7 +79,7 @@ export default function Post({ image, content, userName = '', id, userImage }) {
                        ) :
                        (<Link to={`profile/${id}`}>{userName} </Link>)
                       }
-                   subheader={imgLoading ? <Skeleton animation="wave" height={10} width="40%" /> :  '5 hours ago'}
+                   subheader={imgLoading ? <Skeleton animation="wave" height={10} width="40%" /> :  (formatDate(createdAt))}
                />
                {imgLoading ?  <Skeleton style={skeletonStyle} variant="rect" width={600} height={500} /> : null}
                {    <img
@@ -93,9 +96,14 @@ export default function Post({ image, content, userName = '', id, userImage }) {
                    </Typography>
                </CardContent>
                <CardActions disableSpacing>
-                   <IconButton aria-label="add to favorites">
-                       <FavoriteIcon />
-                   </IconButton>
+                   <Grid container direction="row">
+                       <Grid item xs className="icon">
+                           <FavoriteIcon/> <span>{likes}</span>
+                       </Grid>
+                       <Grid item xs className='icon'>
+                           <ChatBubbleIcon style={{ marginLeft: '-230px' }}/> {comments}
+                       </Grid>
+                   </Grid>
                </CardActions>
            </Card>
        </div>

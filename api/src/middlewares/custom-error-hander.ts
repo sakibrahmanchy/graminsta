@@ -1,9 +1,8 @@
-import { ExpressErrorMiddlewareInterface, HttpError, Middleware } from 'routing-controllers';
-import { isArray } from 'class-validator';
+import { ExpressErrorMiddlewareInterface, Middleware } from 'routing-controllers';
 import * as express from 'express';
 
 /**
- * Express middleware to catch all errors throwed in controlers.
+ * Express middleware to catch all errors thrown in controllers.
  * Should be first in error chain as it sends response to client.
  *
  * @export
@@ -16,7 +15,7 @@ export class CustomErrorHandler implements ExpressErrorMiddlewareInterface {
    * Error handler - sets response code and sends json with error message.
    * Handle: standard node error, HttpError, ValidationError and string.
    *
-   * @param {any} error An throwed object (error)
+   * @param {any} error An thrown object (error)
    * @param {express.Request} req The Express request object
    * @param {express.Response} res The Express response object
    * @param {express.NextFunction} next The next Express middleware function

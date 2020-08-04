@@ -1,13 +1,8 @@
-import { ObjectType, Field, ID } from 'type-graphql';
 
-@ObjectType()
 export class UserRegistrationResponse {
-  @Field(() => ID)
-    id: number;
+  id: number;
 
-  @Field()
-    name: string;
+  name: string;
 
-  @Field()
-    email: string;
+  email: string;
 }

@@ -1,5 +1,10 @@
 import { ValidationError } from 'class-validator';
 
+/** Creating validation errors by formatting default errors.
+ *
+ * @param property
+ * @param errorMessages
+ */
 export const createValidationErrors = (
   property: string, errorMessages: string[],
 ): ValidationError[] => {

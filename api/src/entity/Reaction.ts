@@ -12,6 +12,12 @@ export enum Type {
   COMMENT = 2,
 }
 
+/**
+ * Reaction entity. Could be either like/comment.
+ *
+ * Columns: id, content, type, createdAt, updatedAt.
+ * Relations: post, user.
+ */
 @Entity()
 export class Reaction {
   @PrimaryGeneratedColumn('uuid')
