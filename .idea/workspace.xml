@@ -2,26 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e73589b4-b1df-4173-804a-c356613bb58b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/asset-manifest.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/favicon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/logo192.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/logo512.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/manifest.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/robots.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/service-worker.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/static/css/main.dc89bf4b.chunk.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/static/css/main.dc89bf4b.chunk.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/static/js/runtime-main.207bc79b.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/static/js/runtime-main.207bc79b.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/static/media/login.a84414a6.jpeg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Login.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Post.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Post.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PostDetails.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/PostDetails.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/cookie.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/cookie.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/static/js/main.ff90907f.chunk.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/static/js/main.ff90907f.chunk.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/static/js/main.ff90907f.chunk.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/build/static/js/main.ff90907f.chunk.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/api.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +72,7 @@
       <workItem from="1596135489746" duration="40103000" />
       <workItem from="1596233530850" duration="20517000" />
       <workItem from="1596391042670" duration="24098000" />
-      <workItem from="1596441344704" duration="78351000" />
+      <workItem from="1596441344704" duration="79726000" />
     </task>
     <servers />
   </component>
@@ -159,10 +145,10 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="100" y="123" width="1480" height="827" key="dock-window-1/0.23.1680.1027@0.23.1680.1027" timestamp="1596570587160" />
-    <state x="495" y="300" width="845" height="538" key="find.popup" timestamp="1596578709559">
+    <state x="495" y="300" width="845" height="538" key="find.popup" timestamp="1596580919151">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state x="495" y="300" width="845" height="538" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1596578709559" />
+    <state x="495" y="300" width="845" height="538" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1596580919151" />
     <state x="505" y="248" key="run.anything.popup" timestamp="1596176145316">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>

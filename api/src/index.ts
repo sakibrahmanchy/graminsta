@@ -50,8 +50,8 @@ import { Photo } from './entity/Photo';
   });
 
   // Bind port
-  app.listen(8078, () => {
-    console.log('Listening on port 8078');
+  app.listen(80, () => {
+    console.log('Listening on port 80');
   });
 
   // Set classes in containers for fake data generators, as they are out of scope of routes
