@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import BackgroundImage from './images/login.jpeg';
-import { setCookie } from './cookies';
+import { setCookie, getCookie } from './cookies';
 import ReactDOM from "react-dom";
 import { Redirect } from 'react-router'
 export default function Login ({ onSuccessfulLogin }) {
@@ -22,7 +22,7 @@ export default function Login ({ onSuccessfulLogin }) {
         fetch('http://localhost:8078/login', {
             method: 'POST',
             headers: new Headers({
-                'Authorization': 'Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTU5NjQwNjY3MywiZXhwIjoxNTk2NDEwMjczfQ.7GQBLLDQFZxm1dXPQTd3jN0ArmHOoyPxOUb5bTTMcrs',
+                'Authorization': `Basic ${getCookie('token')}`,
                 'Content-Type': 'application/json'
             }),
             body: JSON.stringify({
