@@ -2,8 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e73589b4-b1df-4173-804a-c356613bb58b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/build/_redirects" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/_redirects" beforeDir="false" afterPath="$PROJECT_DIR$/build/_redirects" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/asset-manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/precache-manifest.c12e56bb26f2f4917c9d1e954667e306.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/service-worker.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/service-worker.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/static/js/main.49cc285e.chunk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/static/js/main.49cc285e.chunk.js.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/api.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -69,7 +75,7 @@
       <workItem from="1596135489746" duration="40103000" />
       <workItem from="1596233530850" duration="20517000" />
       <workItem from="1596391042670" duration="24098000" />
-      <workItem from="1596441344704" duration="82762000" />
+      <workItem from="1596441344704" duration="85172000" />
     </task>
     <servers />
   </component>
@@ -154,10 +160,10 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="505" y="248" key="run.anything.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1596176145316" />
-    <state x="505" y="250" width="670" height="676" key="search.everywhere.popup" timestamp="1596579216676">
+    <state x="505" y="250" width="670" height="676" key="search.everywhere.popup" timestamp="1596586825463">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state x="505" y="250" width="670" height="676" key="search.everywhere.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1596579216676" />
+    <state x="505" y="250" width="670" height="676" key="search.everywhere.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1596586825463" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
