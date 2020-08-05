@@ -13,6 +13,8 @@ import FakerService from './services/faker.service';
 import { User } from './entity/User';
 import { Post } from './entity/Post';
 import { Photo } from './entity/Photo';
+import { CustomErrorHandler } from './middlewares/custom-error-hander';
+import { RouteNotFoundMiddleware } from './middlewares/route-not-found.middleware';
 
 // Bootload api, bind with react distros
 (async () => {
@@ -45,7 +47,10 @@ import { Photo } from './entity/Photo';
   useExpressServer(app, {
     defaultErrorHandler: false,
     controllers: [`${__dirname}/controllers/*.js`],
-    middlewares: [`${__dirname}/middlewares/*.js`],
+    middlewares: [
+      CustomErrorHandler,
+      RouteNotFoundMiddleware,
+    ],
     currentUserChecker: authMiddleWare,
   });
 

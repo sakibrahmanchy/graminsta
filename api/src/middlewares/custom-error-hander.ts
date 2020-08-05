@@ -57,13 +57,21 @@ export class CustomErrorHandler implements ExpressErrorMiddlewareInterface {
     }
 
     if (errors.length) {
-      res.json({
+      this.sendResponse(res, {
         errors,
         data: null,
       });
       return;
     }
 
-    res.json(error);
+    this.sendResponse(res, error);
+  }
+
+  sendResponse(res, data) {
+    if (!res.headersSent) {
+      // Reached to an undefined url. Redirect to home.
+      res.json(data);
+    }
+    res.end();
   }
 }

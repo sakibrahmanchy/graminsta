@@ -7,10 +7,15 @@ import Post from './Post';
 import { getCookie } from './utils/cookie';
 import { baseUrl } from "./utils/api";
 import Navbar from "./Nav";
+import { createMuiTheme } from '@material-ui/core/styles';
+import useMediaQuery from "@material-ui/core/useMediaQuery"
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
+        [theme.breakpoints.down("md")] : {
+            maxWidth: 200
+        }
     },
     menuButton: {
         marginRight: theme.spacing(2),
@@ -28,6 +33,8 @@ export default function Dashboard() {
     const [skip, setSkip] = useState(0);
     const [hasMoreItems, setHasMoreItems] = useState(true);
     const [redirect, setRedirect] = useState(false);
+    const theme = createMuiTheme();
+    const matches = useMediaQuery(theme.breakpoints.up("sm"));
 
     /**
      * Fetching posts from api, in dashboard view
