@@ -12,17 +12,7 @@ Install react front end.
 
 Run project 
 
-`npm start`
-
-# Run tests
-
-All tests can be run by :
-
-`npm test`
-
-With coverages:
-
-`cd api && npm run test -- --coverage`
+Run `docker-compose up`.
 
 
 # Code Coverage Reports
