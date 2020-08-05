@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e73589b4-b1df-4173-804a-c356613bb58b" name="Default Changelist" comment="" />
+    <list default="true" id="e73589b4-b1df-4173-804a-c356613bb58b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/_redirects" beforeDir="false" afterPath="$PROJECT_DIR$/build/_redirects" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,11 +38,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/build" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/utils" />
       <recent name="$PROJECT_DIR$/api" />
       <recent name="$PROJECT_DIR$/api/src" />
-      <recent name="$PROJECT_DIR$/src" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -65,7 +68,7 @@
       <workItem from="1596135489746" duration="40103000" />
       <workItem from="1596233530850" duration="20517000" />
       <workItem from="1596391042670" duration="24098000" />
-      <workItem from="1596441344704" duration="85892000" />
+      <workItem from="1596441344704" duration="86337000" />
     </task>
     <servers />
   </component>
