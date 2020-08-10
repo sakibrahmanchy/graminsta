@@ -11,6 +11,10 @@ Install react front end.
 
 `cd .. && npm i`
 
+Build front end:
+
+`npm run build`
+
 Run project 
 
 Run `docker-compose up`
