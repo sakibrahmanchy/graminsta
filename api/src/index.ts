@@ -24,7 +24,7 @@ import { RouteNotFoundMiddleware } from './middlewares/route-not-found.middlewar
   app.use(helmet());
   app.use(bodyParser.json());
 
-  app.use(express.static(path.join(__dirname, '../../', 'build')));
+  app.use(express.static(path.join(__dirname, '../../', 'build', 'index.html')));
   app.use(express.static('public'));
 
   useContainer(Container);
