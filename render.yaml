@@ -1,8 +1,43 @@
 services:
+  # Define the GramInsta service
   - type: web
-    name: my-web-service
+    name: graminsta
     env: docker
     plan: free
-    dockerfilePath: ./Dockerfile
-    buildCommand: "docker-compose build"
-    startCommand: docker-compose up
+    dockerfilePath: ./Dockerfile # Replace if you use a custom Dockerfile
+    buildCommand: "" # Leave empty if the image is prebuilt
+    startCommand: "npm start"
+    envVars:
+      - key: NODE_ENV
+        value: development
+      - key: PORT
+        value: 80
+      - key: MYSQL_USER
+        value: root
+      - key: MYSQL_ROOT_PASSWORD
+        value: myrootpassword
+      - key: MYSQL_PASSWORD
+        value: myrootpassword
+      - key: MYSQL_DATABASE
+        value: graminsta
+      - key: MYSQL_HOST
+        value: database
+    ports:
+      - 80
+
+  # Define the MySQL database service
+  - type: database
+    name: graminsta-database
+    plan: free
+    databaseType: mysql
+    disk:
+      sizeGB: 1
+    envVars:
+      - key: MYSQL_ROOT_PASSWORD
+        value: myrootpassword
+      - key: MYSQL_USER
+        value: root
+      - key: MYSQL_PASSWORD
+        value: myrootpassword
+      - key: MYSQL_DATABASE
+        value: graminsta
